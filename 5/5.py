@@ -123,7 +123,7 @@ def part_1():
             _from -= 1
             _to -= 1
             stacks[_from], temp = split(stacks[_from], len(stacks[_from]) - amount)
-            # temp.reverse() # part2
+            temp.reverse() # part1
             stacks[_to] = stacks[_to] + temp
             # print(f"op {op}: {l}")
             # for stack in stacks:
@@ -132,17 +132,41 @@ def part_1():
         print([stack[-1] for stack in stacks if len(stack) > 0])
 
 
-# def part_2():
-#     result = 0
-#     with open("sample.txt", "r") as f:
-#         for l in f_iter(f):
-#             A, B = l.split(",")
-#             A, B = to_int(A.split("-")), to_int(B.split("-"))
-#             # print(A,B,intersects(A,B), intersects(B,A))
-#             if intersects(A, B) or intersects(B, A):
-#                 result += 1
-#     print(result)
+def part_2():
+    result = 0
+    with open("sample.txt", "r") as f:
+        state = []
+        for l in f_iter(f):
+            if l == "":
+                break
+            state.append(l)
+        state.reverse()
+        stack_index = state[0].split("   ")
+        stacks = [[] for i in range(len(stack_index))]
+        for l in state[1:]:
+            l = read_line(l)
+            # print(len(stack_index), len(l), l)
+            for i, item in enumerate(l):
+                item: "str" = item.strip()
+                if item != "":
+                    stacks[i].append(item)
+        # op = 0
+        # print(f"op {op}:")
+        # for stack in stacks:
+        #     print(stack)
+        # op += 1
+        for l in f_iter(f):
+            amount, _from, _to = to_int(re.compile("move (\d+) from (\d+) to (\d)").match(l).groups())
+            _from -= 1
+            _to -= 1
+            stacks[_from], temp = split(stacks[_from], len(stacks[_from]) - amount)
+            stacks[_to] = stacks[_to] + temp
+            # print(f"op {op}: {l}")
+            # for stack in stacks:
+            #     print(stack)
+            # op += 1
+        print([stack[-1] for stack in stacks if len(stack) > 0])
 
 
 part_1()
-# part_2()
+part_2()
