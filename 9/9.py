@@ -73,7 +73,7 @@ def part_2():
     rope_length = 10
     rope = [(0,0) for i in range(rope_length)]
     
-    with open("9.txt", "r") as f:
+    with open("sample.txt", "r") as f:
         for l in f_iter(f):
             d, _c = l.split(" ")
             step, count = direction_to_step[d], int(_c)
@@ -89,5 +89,5 @@ def part_2():
                 positions.add(rope[0])
         print(len(positions))
 
-# part_1()
+part_1()
 part_2()
